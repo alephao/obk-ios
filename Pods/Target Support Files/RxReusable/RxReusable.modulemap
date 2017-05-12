@@ -1,0 +1,6 @@
+framework module RxReusable {
+  umbrella header "RxReusable-umbrella.h"
+
+  export *
+  module * { export * }
+}

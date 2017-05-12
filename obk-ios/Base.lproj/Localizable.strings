@@ -1,0 +1,38 @@
+// Opportunities screen
+"GOING_TITLE" = "Going";
+
+// Login screen
+"LOGIN_EMAIL" = "EMAIL";
+"LOGIN_EMAIL_PLACEHOLDER" = "your@email.com";
+"LOGIN_PASSWORD" = "PASSWORD";
+"LOGIN_PASSWORD_PLACEHOLDER" = "Your password";
+"LOGIN_SIGNIN_BUTTON" = "SIGN IN";
+"LOGIN_SIGNUP_BUTTON" = "CREATE AN ACCOUNT";
+"LOGIN_TITLE" = "Login";
+
+// Opportunities screen
+"OPPORTUNITIES_TITLE" = "Opportunities";
+
+// Opportunity Details screen
+"OPPORTUNITY_DETAILS_TITLE" = "Details";
+"OPPORTUNITY_DETAILS_JOIN_BUTTON" = "Join opportunity";
+"OPPORTUNITY_DETAILS_LEAVE_BUTTON" = "Leave";
+
+// Profile screen
+"PROFILE_TITLE" = "Profile";
+
+// Registration screen
+"REGISTRATION_CONTACTNUMBER_PLACEHOLDER" = "Contact number";
+"REGISTRATION_DATEOFBIRTH_PLACEHOLDER" = "Date of birth";
+"REGISTRATION_EMAIL_PLACEHOLDER" = "E-mail";
+"REGISTRATION_FIRSTNAME_PLACEHOLDER" = "First name";
+"REGISTRATION_LASTNAME_PLACEHOLDER" = "Last name";
+"REGISTRATION_PASSWORD_PLACEHOLDER" = "Password";
+"REGISTRATION_REGISTER_BUTTON" = "REGISTER";
+"REGISTRATION_TITLE" = "Registration";
+"REGISTRATION_WWCN_PLACEHOLDER" = "Working with childens number";
+
+
+// Global
+"CANCEL" = "Cancel";
+"LOGOUT" = "Logout";
