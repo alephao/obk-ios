@@ -28,7 +28,7 @@ final class SplashViewReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .checkIfAuthenticated:
-//            return self.provider.userService.fetchMe()
+            // TODO: Get session
             return Observable.just(false)
                 .catchErrorJustReturn(false)
                 .map(Mutation.setAuthenticated)

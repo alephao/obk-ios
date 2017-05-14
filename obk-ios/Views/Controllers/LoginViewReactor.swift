@@ -63,26 +63,22 @@ final class LoginViewReactor: Reactor {
             let setLoggedIn: Observable<Mutation> =  self.provider.authService
                 .signIn(email: self.currentState.email, password: self.currentState.password)
                 .catchErrorJustReturn(nil)
-                .do(onNext: { [weak self] volunteer in
-                    self?.provider.userService.updateCurrentUser(volunteer)
-                })
                 .map { volunteer in volunteer != nil }
                 .flatMapLatest { success -> Observable<Bool> in
                     if success {
                         return Observable.just(success)
                     } else {
                         return self.provider.alertService
-                            .show(title: "Erorr",
+                            .show(title: "Error",
                                   message: "Failed to authenticate",
                                   preferredStyle: .alert,
                                   actions: [LoginViewAlertAction.ok])
                             .map { _ in success }
                     }
                 }
-                .debug()
                 .map(Mutation.setLoggedIn)
 
-            return setLoading.concat(setLoggedIn).concat(setNotLoading)
+            return Observable.concat([setLoading, setLoggedIn, setNotLoading])
         case let .updateEmail(email):
             return .just(.updateEmail(email))
         case let .updatePassword(password):
