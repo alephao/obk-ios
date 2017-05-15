@@ -22,8 +22,7 @@ enum OBKAPI {
 
 extension OBKAPI: SugarTargetType {
     var baseURL: URL {
-//        return URL(string: "http://obk-open.herokuapp.com/api")!
-        return URL(string: "http://192.168.15.103:3000/api")!
+        return URL(string: "http://obk-open.herokuapp.com/api")!
     }
     
     var route: Route {
