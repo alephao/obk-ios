@@ -160,9 +160,9 @@ final class LoginViewController: BaseViewController, View {
             .disposed(by: disposeBag)
         
         signupButton.rx.tap
-            .map { reactor.registrationViewModel() }
-            .subscribe(onNext: { [weak self] viewModel in
-                let controller = RegistrationViewController(viewModel: viewModel)
+            .map { reactor.registrationViewReactor() }
+            .subscribe(onNext: { [weak self] reactor in
+                let controller = RegistrationViewController(reactor: reactor)
                 self?.navigationController?.pushViewController(controller, animated: true)
             })
             .disposed(by: disposeBag)

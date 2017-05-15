@@ -109,8 +109,8 @@ final class LoginViewReactor: Reactor {
         }
     }
     
-    func registrationViewModel() -> RegistrationViewModelType {
-        return RegistrationViewModel(provider: provider)
+    func registrationViewReactor() -> RegistrationViewReactor {
+        return RegistrationViewReactor(provider: provider)
     }
     
 }

@@ -26,6 +26,15 @@ protocol AuthServiceType: class {
     
     func signIn(email: String, password: String) -> Observable<Volunteer?>
     
+    func signup(firstName: String,
+                lastName: String,
+                email: String,
+                password: String,
+                contactNumber: String,
+                dateOfBirth: String,
+                wwccn: String?,
+                subNewsletter: Bool) -> Observable<Volunteer?>
+    
     func logout()
 }
 
@@ -40,8 +49,43 @@ final class AuthService: BaseService, AuthServiceType {
     }
     
     func signIn(email: String, password: String) -> Observable<Volunteer?> {
-//        self?.provider.userService.updateCurrentUser(volunteer)
         return self.provider.networking.request(.signin(email: email, password: password))
+            .do(onNext: { [weak self] response in self?.extractToken(response) })
+            .mapJSON()
+            .map { [weak self] anyJson in
+                let json = JSON(anyJson)
+                do {
+                    let decoded = AuthEnvelope.decode(json)
+                    let dematerialized = try decoded.dematerialize()
+                    let volunteer = dematerialized.data.volunteer
+                    self?.provider.userService.updateCurrentUser(volunteer)
+                    return volunteer
+                } catch {
+                    return nil
+                }
+        }
+    }
+    
+    func signup(firstName: String,
+                lastName: String,
+                email: String,
+                password: String,
+                contactNumber: String,
+                dateOfBirth: String,
+                wwccn: String?,
+                subNewsletter: Bool) -> Observable<Volunteer?> {
+        return self.provider.networking.request(.signup(dob: dateOfBirth,
+                                                        email: email,
+                                                        firstName: firstName,
+                                                        gender: "M", // Gender is not necessary now
+            landline: nil,
+            lastName: lastName,
+            mobile: contactNumber,
+            password: password,
+            passwordConfirmation: password,
+            subNewsletter: subNewsletter,
+            wwccn: wwccn)
+            )
             .do(onNext: { [weak self] response in self?.extractToken(response) })
             .mapJSON()
             .map { [weak self] anyJson in

@@ -22,7 +22,8 @@ enum OBKAPI {
 
 extension OBKAPI: SugarTargetType {
     var baseURL: URL {
-        return URL(string: "http://obk-open.herokuapp.com/api")!
+//        return URL(string: "http://obk-open.herokuapp.com/api")!
+        return URL(string: "http://192.168.15.103:3000/api")!
     }
     
     var route: Route {
@@ -44,28 +45,28 @@ extension OBKAPI: SugarTargetType {
         switch self {
         case let .signin(email, password):
             return ["email": email, "password": password]
-        case let .signup(dob, email, firstName, gender, landline, lastName, mobile, password, passwordConfirmation, subNewsletter, wwccn):
-            var p: [String: Any] = [
-                "dob": dob,
-                "email": email,
-                "first_name": firstName,
-                "gender": gender,
-                "last_name": lastName,
-                "mobile_number": mobile,
-                "password": password,
-                "password_confirmation": passwordConfirmation,
-                "sub_newsletter": subNewsletter,
-                ]
-            
-            if landline != nil {
-                p["landline_number"] = landline!
-            }
-            
-            if wwccn != nil {
-                p["wwccn"] = wwccn!
-            }
-            
-            return p as? Parameters
+        case let .signup(dob,
+                         email,
+                         firstName,
+                         gender,
+                         landline,
+                         lastName,
+                         mobile,
+                         password,
+                         passwordConfirmation,
+                         subNewsletter,
+                         wwccn):
+            return ["dob": dob,
+                    "email": email,
+                    "first_name": firstName,
+                    "gender": gender,
+                    "last_name": lastName,
+                    "mobile_number": mobile,
+                    "password": password,
+                    "password_confirmation": passwordConfirmation,
+                    "sub_newsletter": subNewsletter,
+                    "landline_number": landline ?? "nil",
+                    "wwccn": wwccn ?? "nil"]
         default:
             return nil
         }

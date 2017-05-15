@@ -1,15 +1,17 @@
+import ReactorKit
 import RxCocoa
 import RxKeyboard
 import RxSwift
 import UIKit
 
-final class RegistrationViewController: OldBaseViewController, UITextFieldDelegate {
+//final class RegistrationViewController: OldBaseViewController, UITextFieldDelegate {
+final class RegistrationViewController: BaseViewController, View {
     
-    // MARK: NOT GOOD
+    // MARK: Navigation between textfields
     internal var currentActiveTextField: UITextField?
     internal var textFields = [UITextField]()
     
-    // MARK: - UI Elements
+    // MARK: - UI
     internal let toolbar = UIToolbar().then {
         $0.barStyle = .default
         $0.tintColor = Color.orange.uiColor()
@@ -38,17 +40,20 @@ final class RegistrationViewController: OldBaseViewController, UITextFieldDelega
     
     internal let emailTextField = UITextField().then {
         $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
         $0.keyboardType = .emailAddress
         $0.placeholder = "REGISTRATION_EMAIL_PLACEHOLDER".localized()
         $0.returnKeyType = .next
     }
     
     internal let firstNameTextField = UITextField().then {
+        $0.autocorrectionType = .no
         $0.placeholder = "REGISTRATION_FIRSTNAME_PLACEHOLDER".localized()
         $0.returnKeyType = .next
     }
     
     internal let lastNameTextField = UITextField().then {
+        $0.autocorrectionType = .no
         $0.placeholder = "REGISTRATION_LASTNAME_PLACEHOLDER".localized()
         $0.returnKeyType = .next
     }
@@ -66,6 +71,7 @@ final class RegistrationViewController: OldBaseViewController, UITextFieldDelega
     }
     
     internal let wwccnTextField = UITextField().then {
+        $0.autocorrectionType = .no
         $0.placeholder = "REGISTRATION_WWCN_PLACEHOLDER".localized()
         $0.returnKeyType = .next
     }
@@ -80,10 +86,10 @@ final class RegistrationViewController: OldBaseViewController, UITextFieldDelega
         return .lightContent
     }
     
-    // MARK: Initializing
-    init(viewModel: RegistrationViewModelType) {
+    // MARK: - Initializing
+    init(reactor: RegistrationViewReactor) {
+        defer { self.reactor = reactor }
         super.init()
-        self.configure(viewModel)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -257,7 +263,120 @@ final class RegistrationViewController: OldBaseViewController, UITextFieldDelega
         }
     }
     
-    // MARK: NOT GOOD
+    // MARK: Configuring
+    func bind(reactor: RegistrationViewReactor) {
+        contactNumberTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                
+            })
+            .disposed(by: disposeBag)
+        
+        emailTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.passwordTextField.becomeFirstResponder()
+            })
+            .disposed(by: disposeBag)
+        
+        firstNameTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.lastNameTextField.becomeFirstResponder()
+            })
+            .disposed(by: disposeBag)
+        
+        lastNameTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.emailTextField.becomeFirstResponder()
+            })
+            .disposed(by: disposeBag)
+        
+        passwordTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                
+            })
+            .disposed(by: disposeBag)
+
+        
+        // Action
+        let dateFormatter = DateFormatter(dateFormat: "dd/MM/yyyy")
+        
+        birthDatePicker.rx.value
+            .map(dateFormatter.string)
+            .bindTo(dateOfBirthTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        birthDatePicker.rx.value
+            .map { date in RegistrationViewReactor.Action.updateDateOfBirth(date) }
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        contactNumberTextField.rx.value
+            .unwrap()
+            .map(Reactor.Action.updateContactNumber)
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        emailTextField.rx.value
+            .unwrap()
+            .map(Reactor.Action.updateEmail)
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        firstNameTextField.rx.value
+            .unwrap()
+            .map(Reactor.Action.updateFirstName)
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        lastNameTextField.rx.value
+            .unwrap()
+            .map(Reactor.Action.updateLastName)
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        passwordTextField.rx.value
+            .unwrap()
+            .map(Reactor.Action.updatePassword)
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        wwccnTextField.rx.value
+            .unwrap()
+            .map(Reactor.Action.updateWWCCN)
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        registerButton.rx.tap
+            .map { _ in Reactor.Action.signup }
+            .bindTo(reactor.action)
+            .disposed(by: disposeBag)
+        
+        // State
+        
+        reactor.state.map { $0.isFormValid }
+            .observeOn(MainScheduler.instance)
+            .debug()
+            .bindTo(registerButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isLoggedIn }
+            .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
+            .filter { $0 }
+            .subscribe(onNext: { _ in
+                AppDelegate.shared.presentMainScreen()
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isWWCCNHidden }
+            .distinctUntilChanged()
+            .bindTo(wwccnTextField.rx.isHidden)
+            .disposed(by: disposeBag)
+    }
+
+}
+
+// MARK: TextField Navigation
+extension RegistrationViewController: UITextFieldDelegate {
     internal func setActive(_ textField: UITextField) {
         self.currentActiveTextField = textField
     }
@@ -297,90 +416,5 @@ final class RegistrationViewController: OldBaseViewController, UITextFieldDelega
         if currentActiveTextField == textField {
             currentActiveTextField = nil
         }
-    }
-    
-    // MARK: Configuring
-    private func configure(_ viewModel: RegistrationViewModelType) {
-        // MARK: ViewModel Inputs
-        
-        birthDatePicker.rx.value
-            .bindTo(viewModel.dateOfBirthDidChange)
-            .disposed(by: disposeBag)
-        
-        contactNumberTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bindTo(viewModel.contactNumberTextFieldDidReturn)
-            .disposed(by: disposeBag)
-        
-        emailTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bindTo(viewModel.emailTextFieldDidReturn)
-            .disposed(by: disposeBag)
-        
-        firstNameTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bindTo(viewModel.firstNameTextFieldDidReturn)
-            .disposed(by: disposeBag)
-        
-        lastNameTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bindTo(viewModel.lastNameTextFieldDidReturn)
-            .disposed(by: disposeBag)
-        
-        passwordTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bindTo(viewModel.passwordTextFieldDidReturn)
-            .disposed(by: disposeBag)
-        
-        wwccnTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bindTo(viewModel.wwccnTextFieldDidReturn)
-            .disposed(by: disposeBag)
-        
-        // MARK: ViewModel Outputs
-        
-        viewModel.dateOfBirth
-            .drive(dateOfBirthTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.focusOnContactNumberTextField
-            .subscribe(onNext: { [weak self] _ in
-                self?.contactNumberTextField.becomeFirstResponder()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.focusOnDateOfBirthTextField
-            .subscribe(onNext: { [weak self] _ in
-                self?.dateOfBirthTextField.becomeFirstResponder()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.focusOnEmailTextField
-            .subscribe(onNext: { [weak self] _ in
-                self?.emailTextField.becomeFirstResponder()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.focusOnFirstNameTextField
-            .subscribe(onNext: { [weak self] _ in
-                self?.firstNameTextField.becomeFirstResponder()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.focusOnLastNameTextField
-            .subscribe(onNext: { [weak self] _ in
-                self?.lastNameTextField.becomeFirstResponder()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.focusOnPasswordTextField
-            .subscribe(onNext: { [weak self] _ in
-                self?.passwordTextField.becomeFirstResponder()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.focusOnWwccnTextField
-            .subscribe(onNext: { [weak self] _ in
-                self?.wwccnTextField.becomeFirstResponder()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.wwccnIsHidden
-            .bindTo(wwccnTextField.rx.isHidden)
-            .disposed(by: disposeBag)
     }
 }

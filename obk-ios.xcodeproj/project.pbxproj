@@ -24,9 +24,9 @@
 		2774E46F1EC72B1C0040620A /* MockAlertSercice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2774E46E1EC72B1C0040620A /* MockAlertSercice.swift */; };
 		2774E4711EC72B2D0040620A /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2774E4701EC72B2D0040620A /* MockAuthService.swift */; };
 		2774E4731EC72B490040620A /* MockOpportunitiesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2774E4721EC72B490040620A /* MockOpportunitiesService.swift */; };
-		2774E4751EC72B650040620A /* MockRegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2774E4741EC72B650040620A /* MockRegistrationService.swift */; };
 		2774E4771EC72B700040620A /* MockUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2774E4761EC72B700040620A /* MockUserService.swift */; };
 		2774E4791EC89BDD0040620A /* MockAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2774E4781EC89BDD0040620A /* MockAppDelegate.swift */; };
+		2774E47B1EC8C35B0040620A /* RegistrationViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2774E47A1EC8C35B0040620A /* RegistrationViewReactor.swift */; };
 		278E9B1A1EBAC22200102CB3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E9B191EBAC22200102CB3 /* BaseViewController.swift */; };
 		278EA2A21EB81EFA00C5FB80 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278EA2A11EB81EFA00C5FB80 /* String+Extensions.swift */; };
 		278EA2A41EB8422000C5FB80 /* OpportunitiesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278EA2A31EB8422000C5FB80 /* OpportunitiesService.swift */; };
@@ -70,7 +70,6 @@
 		991B93EF67C7B7B6F9A27D05 /* OpportunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EF7D1382368D89D9E5C780 /* OpportunitiesViewController.swift */; };
 		A72EA811FCD15B2A5FDEAB8A /* OpportunityCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87278AD84F5C909D45638D /* OpportunityCellViewModel.swift */; };
 		EC8B1E4F1E2A92CF007E01DD /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B1E4E1E2A92CF007E01DD /* RegistrationViewController.swift */; };
-		EC8B1E591E2AC614007E01DD /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B1E581E2AC614007E01DD /* RegistrationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,9 +99,9 @@
 		2774E46E1EC72B1C0040620A /* MockAlertSercice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockAlertSercice.swift; path = Mocks/Services/MockAlertSercice.swift; sourceTree = "<group>"; };
 		2774E4701EC72B2D0040620A /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockAuthService.swift; path = Mocks/Services/MockAuthService.swift; sourceTree = "<group>"; };
 		2774E4721EC72B490040620A /* MockOpportunitiesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockOpportunitiesService.swift; path = Mocks/Services/MockOpportunitiesService.swift; sourceTree = "<group>"; };
-		2774E4741EC72B650040620A /* MockRegistrationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockRegistrationService.swift; path = Mocks/Services/MockRegistrationService.swift; sourceTree = "<group>"; };
 		2774E4761EC72B700040620A /* MockUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockUserService.swift; path = Mocks/Services/MockUserService.swift; sourceTree = "<group>"; };
 		2774E4781EC89BDD0040620A /* MockAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockAppDelegate.swift; path = Mocks/MockAppDelegate.swift; sourceTree = "<group>"; };
+		2774E47A1EC8C35B0040620A /* RegistrationViewReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationViewReactor.swift; path = Views/Controllers/RegistrationViewReactor.swift; sourceTree = "<group>"; };
 		278E9B191EBAC22200102CB3 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Views/Controllers/BaseViewController.swift; sourceTree = "<group>"; };
 		278EA2A11EB81EFA00C5FB80 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Extensions.swift"; path = "Utils/String+Extensions.swift"; sourceTree = "<group>"; };
 		278EA2A31EB8422000C5FB80 /* OpportunitiesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpportunitiesService.swift; path = Services/OpportunitiesService.swift; sourceTree = "<group>"; };
@@ -164,7 +163,6 @@
 		E7BE4BC28EE3ED110899E553 /* Pods-obk-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-obk-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-obk-iosTests/Pods-obk-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		EC2B4C3B31B10705720A3FBE /* Pods_obk_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_obk_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8B1E4E1E2A92CF007E01DD /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationViewController.swift; path = Views/Controllers/RegistrationViewController.swift; sourceTree = "<group>"; };
-		EC8B1E581E2AC614007E01DD /* RegistrationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationViewModel.swift; path = Views/Controllers/RegistrationViewModel.swift; sourceTree = "<group>"; };
 		F164D3408D9FFC58D08DAE45 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BaseTableViewCell.swift; path = Views/Cells/BaseTableViewCell.swift; sourceTree = "<group>"; };
 		F7AAAECE99BBA88940356A07 /* Pods-obk-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-obk-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-obk-ios/Pods-obk-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,7 +202,6 @@
 				2774E46E1EC72B1C0040620A /* MockAlertSercice.swift */,
 				2774E4701EC72B2D0040620A /* MockAuthService.swift */,
 				2774E4721EC72B490040620A /* MockOpportunitiesService.swift */,
-				2774E4741EC72B650040620A /* MockRegistrationService.swift */,
 				2774E46C1EC72AB20040620A /* MockServiceProvider.swift */,
 				2774E4761EC72B700040620A /* MockUserService.swift */,
 			);
@@ -295,7 +292,7 @@
 				866475F91E0A0C0000BC497B /* RootTabBarViewController.swift */,
 				27A0191A1EB97D64001D6052 /* RootTabBarReactor.swift */,
 				EC8B1E4E1E2A92CF007E01DD /* RegistrationViewController.swift */,
-				EC8B1E581E2AC614007E01DD /* RegistrationViewModel.swift */,
+				2774E47A1EC8C35B0040620A /* RegistrationViewReactor.swift */,
 				27D09A201EBABA9600A6C018 /* SplashViewController.swift */,
 				27D09A221EBABAB400A6C018 /* SplashViewReactor.swift */,
 			);
@@ -659,7 +656,6 @@
 				8626DC331E0E972E00CD0252 /* LoginViewController.swift in Sources */,
 				2752BB121EC1BEA20014FE9F /* Networking.swift in Sources */,
 				86900C071E2F5FEC00204FC1 /* EventsEnvelope.swift in Sources */,
-				EC8B1E591E2AC614007E01DD /* RegistrationViewModel.swift in Sources */,
 				27D09A271EBABD1F00A6C018 /* UIViewController+Rx.swift in Sources */,
 				8677E96A1E0A2685008DC86F /* Opportunity.swift in Sources */,
 				864FFE321E21570200E5E83C /* Colors.swift in Sources */,
@@ -667,6 +663,7 @@
 				278EA2A81EB84A9500C5FB80 /* BaseService.swift in Sources */,
 				864FFE4A1E215B1500E5E83C /* UIColor+Extensions.swift in Sources */,
 				86549F8E1E39B7F1005BCAEE /* NavigationController.swift in Sources */,
+				2774E47B1EC8C35B0040620A /* RegistrationViewReactor.swift in Sources */,
 				868768451E2EE2A000AE861C /* OBKAPI.swift in Sources */,
 				278E9B1A1EBAC22200102CB3 /* BaseViewController.swift in Sources */,
 				27F1B8A61EBADE28001EB8FD /* OpportunityDetailsViewReactor.swift in Sources */,
@@ -709,7 +706,6 @@
 				A72EA811FCD15B2A5FDEAB8A /* OpportunityCellViewModel.swift in Sources */,
 				6C14A6976D40A63C6C2AEE22 /* OpportunityDetailsViewController.swift in Sources */,
 				270E3DE41EB84D0E00662B11 /* AuthService.swift in Sources */,
-				2774E4751EC72B650040620A /* MockRegistrationService.swift in Sources */,
 				274FC9E51EBB2A4E00D862BC /* ProfileViewReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
